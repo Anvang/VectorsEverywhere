@@ -6,29 +6,50 @@ using namespace std;
 
 //Prototypes...
 vector <int> addRandomNumbers(int,vector <int>);
-void printVector( vector <int> );
-void searchWithinVector(int, vector <int>);
+void printVector( vector <int>, char );
+vector <int> searchWithinVector(int, vector <int>);
+void replaceWith(vector <int> &, vector <int>, int);
 
 int main()
 {
         srand(time(NULL)); //only do once per program run
 
-        int randomNumber;
         int amount;
         int search;
-        bool found;
+        int value;
         vector <int> list;
+        vector <int> places;
 
         cout<<"How many numbers should we make? ";
         cin>>amount;
+        // (RED) create a list of random number the size of AMOUNT in list
+
+        cout<<"List is initially: ";
+        // (ORANGE) display the numbers in LIST with spaces ( ) between each element
+
         cout<<"What number should we search for? ";
         cin>>search;
-        printVector(list);
-        list = addRandomNumbers(amount,list);
-        printVector(list);
-        list = addRandomNumbers(5,list);
-        printVector(list);
-        searchWithinVector(search,list);
+
+        do
+        {
+            // (YELLOW) find each index where SEARCH is found in LIST and store the locations in PLACES
+
+        }while( places.size() > 0 );
+
+        cout<<search<<" found at locations: ";
+        // (GREEN) display the numbers in PLACES with a comma (,) between each element
+
+        cout<<"Replace with value: ";
+        cin>>value;
+        // (BLUE) change the value of each element at each index in PLACES within LIST to the value VALUE
+        
+        cout<<"Replaced list has: ";
+        // (INDIGO) display the numbers in LIST with spaces ( ) between each element
+        
+        // (VIOLET) add 5 more random numbers to LIST
+
+        cout<<"Updated list with more random numbers: ";
+        // (GREY) display the numbers in LIST with hyphens (-) between each element         
         
         return 0;
 }
@@ -43,14 +64,14 @@ vector <int> addRandomNumbers(int howMany, vector <int> original)
         return original;
 }
 
-void printVector( vector <int> printing )
+void printVector( vector <int> printing, char deliminator )
 {
         for(int i=0; i<printing.size(); i++)
         {
                 cout<<printing[i];
                 if( i < printing.size()-1 )
                 {
-                        cout<<", ";
+                        cout<<deliminator;
                 }
                 else
                 {
@@ -59,22 +80,26 @@ void printVector( vector <int> printing )
         }
 }
 
-void searchWithinVector(int searchFor, vector <int> within)
+vector <int> searchWithinVector(int searchFor, vector <int> within)
 {
-        bool found = false;
-
-        for(int i=0; i<within.size(); i++)
+    vector <int> locations;
+    for(int i=0; i<within.size(); i++)
+    {
+        if( searchFor == within[i] )
         {
-                if( searchFor == within.at(i) )
-                {
-                    cout<<within.at(i)<<" is at location "<<i<<endl;
-                    found = true;
-                }
+            locations.push_back(i);
         }
-        if( found == false )
+    }
+    return locations;
+}
+
+void replaceWith(vector <int> & values, vector <int> locations, int newValue)
+{
+    for(int i=0; i < locations.size(); i++)
+    {
+        if( locations[i] >=0 && locations[i] < values.size() )
         {
-                cout<<searchFor<<" is not in the list."<<endl;
+            values[ locations[i] ] = newValue;
         }
-
-
+    }
 }
